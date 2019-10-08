@@ -116,8 +116,10 @@ namespace big_sister_base
 
         public void AddProduct(Product product)
         {
+           
             Cart.Products.Add(product);
             OnLittleGuyTookProduct();
+
         }
 
         public void RemoveProduct(Product product)
@@ -127,24 +129,31 @@ namespace big_sister_base
 
         public bool Pay()
         {
-            bool continueP = OnLittleGuyWantsToPay();
-            if (continueP == false) return false; 
-            int total = 0;
-            foreach (Product p in Cart.Products)
+            if(OnLittleGuyWantsToPay())
             {
-                total += p.Price;
+                int total = 0;
+                foreach (Product p in Cart.Products)
+                {
+                    total += p.Price;
+                }
+                Console.WriteLine("El total de tu compra es: $" + total.ToString());
+                Console.Write("Este programa se cerrará en ");
+                for (int i = 5; i > 0; i--)
+                {
+                    Console.Write(i.ToString() + " ");
+                    Thread.Sleep(1000);
+                }
+                ShopList = new List<Product>();
+                Generatelist();
+                Cart.Clear();
+                return true;
+
             }
-            Console.WriteLine("El total de tu compra es: $" + total.ToString());
-            Console.Write("Este programa se cerrará en ");
-            for (int i = 5; i > 0; i--)
+            else
             {
-                Console.Write(i.ToString() + " ");
-                Thread.Sleep(1000);
+                return false;
             }
-            ShopList = new List<Product>();
-            Generatelist();
-            Cart.Clear();
-            return true;
+          
         }
 
         public void ViewCart()
@@ -155,6 +164,7 @@ namespace big_sister_base
 
         public bool LoadData()
         {
+            
             String fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cart.txt");
             if (!File.Exists(fileName))
             {
@@ -174,10 +184,13 @@ namespace big_sister_base
             ShopList = formatter.Deserialize(fs) as List<Product>;
             fs.Close();
             return true;
+            
         }
 
-        public void SaveData()
+
+       public void SaveData()
         {
+
             // Creamos el Stream donde guardaremos la informacion
             String fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cart.txt");
             FileStream fs = new FileStream(fileName, FileMode.Create);
@@ -189,5 +202,6 @@ namespace big_sister_base
             formatter.Serialize(fs, ShopList);
             fs.Close();
         }
+        
     }
 }

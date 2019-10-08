@@ -9,7 +9,7 @@ namespace big_sister_base
     {
         private List<Product> products;
 
-        public List<Product> Products { get => products; }
+        public List<Product> Products { get => products; set => products = value; }
 
         public Cart()
         {

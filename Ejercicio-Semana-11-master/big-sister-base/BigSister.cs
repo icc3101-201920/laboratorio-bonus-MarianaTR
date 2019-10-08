@@ -22,16 +22,17 @@ namespace big_sister_base
             {
                 if (product.Name == productoAgregado.Name)
                 {
+                    Console.WriteLine(product.Stock);
                     if (product.Stock == 1)
                     {
-
                         product.Stock -= 1;
                         Console.WriteLine("Big Sister says: It is necessary...");
                         Thread.Sleep(3000);
+                        break;
                     }
                     else
                     {
-                        guy.RemoveProduct(product);
+                        guy.RemoveProduct(productoAgregado);
                         Console.WriteLine("Big Sister says: You cant buy that product!");
                         Thread.Sleep(3000);
                     }
@@ -57,6 +58,7 @@ namespace big_sister_base
             if (right != true)
             {
                 Console.WriteLine("Big Sister says: You cant exit!");
+                Thread.Sleep(3000);
                 return false;
             }
 

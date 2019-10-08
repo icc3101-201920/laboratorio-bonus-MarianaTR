@@ -13,6 +13,7 @@ namespace big_sister_base
             littleGuy.LittleGuyTookProduct += sista.OnLittleGuyTookProduct;
             littleGuy.LittleGuyWantsToPay += sista.OnLittleGuyWantsToPay;
             bool continueCycle = true;
+            littleGuy.Cart.Clear();
             while (continueCycle)
             {
                 Console.Clear();
@@ -70,6 +71,7 @@ namespace big_sister_base
                         break;
                     case "5":
                         Console.Clear();
+                        Cart cart = new Cart();
                         littleGuy.SaveData();
                         market.SaveStorage();
                         continueCycle = false;
